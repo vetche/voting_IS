@@ -1,0 +1,27 @@
+<?php use Phalcon\Tag; ?>
+	<table class="table table-hover">
+		<caption>Voting history</caption>
+		<thead>
+		<tr>
+			<th>Point</th>
+			<th>Person</th>
+			<th>Voted</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach( $history as $entry ){?>
+			<tr>
+				<td><?= $entry->votingPoint->getName() ?></td>
+				<td><?= $entry->person->getFirstName() . ' ' . $entry->person->getLastName() ?></td>
+				<td><?= $votingOptions[ $entry->getVoted()] ?></td>
+			</tr>
+		<?php }?>
+	</table>
+	<script>
+		$('table').filterTable(
+			{
+				quickList: ['sex', 'Hawaiʻi', 'university', 'college', 'neighbor island']
+			}
+		);
+	</script>
+<?= Tag::linkTo( "voting_history/add", "Add new" ) ?>

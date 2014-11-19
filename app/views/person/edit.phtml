@@ -1,0 +1,29 @@
+<?php use Phalcon\Tag;
+Tag::setDefaults( array(
+	                  "name" => $user->getFirstName(),
+                      "surname" => $user->getLastName(),
+                      "is_active" => $user->getIsActive()
+                  ));
+?>
+
+<?= Tag::form( "person/edit/" . $user->getId()); ?>
+
+<p>
+	<label for="name">Name</label>
+	<?= Tag::textField( "name" ) ?>
+</p>
+
+<p>
+	<label for="surname">Surname</label>
+	<?= Tag::textField( "surname" ) ?>
+</p>
+<p>
+	<label for="is_active">Is person active</label>
+	<?= Tag::checkField("is_active") ?>
+</p>
+
+<p>
+	<?= Tag::submitButton( "Submit" ) ?>
+</p>
+
+</form>

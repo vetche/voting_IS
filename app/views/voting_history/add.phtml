@@ -1,0 +1,43 @@
+<?php use Phalcon\Tag; ?>
+
+	<h2>Voting History</h2>
+
+	<p>Add new entry</p>
+<?= Tag::form( "voting_history/add" ) ?>
+
+	<p>
+		<label for="point">Point</label>
+		<?= Tag::select( array(
+			                 "point",
+			                 VotingPoint::find( array(
+				                                    "order" => "date DESC, name",
+				                                    'columns' => array( 'id', "name" ),
+			                                    ) ),
+			                 "using" => array( "id", "name" ) ) ) ?>
+	</p>
+
+	<p>
+		<label for="person">Person</label>
+		<?= Tag::select( array(
+			                 "person",
+			                 Person::find( array(
+				                               "is_active = true",
+				                               "order" => "last_name, first_name",
+				                               'columns' => array( "id", " CONCAT( first_name, ' ', last_name ) as fullname" ),
+			                               ) ),
+			                 "using" => array( "id", "fullname" ) ) ) ?>
+	</p>
+
+	<p>
+		<label for="voted">Voted</label>
+		<?= Tag::selectStatic(array( "voted", $votingOptions )); ?>
+	</p>
+
+
+	<!--1999-01-08 rmd-->
+	<p>
+		<?= Tag::submitButton( "Submit" ) ?>
+	</p>
+
+	</form>
+<?= Tag::javascriptInclude( "js/script.js" ) ?>

@@ -1,0 +1,31 @@
+<?php use Phalcon\Tag; ?>
+
+	<p>Add new point</p>
+<?= Tag::form( array( "voting_point/add", "class" => "form-horizontal" )) ?>
+		<div class="control-group">
+		<label class="control-label" for="name">Name</label>
+	<div class="controls">
+			<?= Tag::textField( "name" ) ?>
+	</div>
+		</div>
+	<div class="control-group">
+		<label class="control-label" for="description">Descritpion</label>
+	<div class="controls">
+			<?= Tag::textArea( "description" ) ?>
+	</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="date">Date</label>
+	<div class="controls">
+		<?= Tag::textField( array( "date", "id" => "dp1" ) ); ?>
+	</div>
+	</div>
+	<div class="control-group">
+
+	<!--1999-01-08 rmd-->
+	<div class="controls">
+		<?= Tag::submitButton( array( "Register", "class" => "btn" )) ?>
+	</div>
+</div>
+	</form>
+<?= Tag::javascriptInclude( "js/script.js" ) ?>

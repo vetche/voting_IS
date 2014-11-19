@@ -1,0 +1,21 @@
+<?php use Phalcon\Tag; ?>
+<html>
+<head>
+	<title>Voting IS</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<?= Tag::stylesheetLink( "css/bootstrap.css" ); ?>
+	<?= Tag::stylesheetLink( "css/datepicker.css" ); ?>
+	<?= Tag::javascriptInclude( "js/jquery.js" ); ?>
+	<?= Tag::javascriptInclude( "js/bootstrap.min.js" ); ?>
+	<?= Tag::javascriptInclude( "js/bootstrap-datepicker.js" ); ?>
+	<?= Tag::javascriptInclude( "js/jquery.filtertable.js" ); ?>
+</head>
+<body>
+<div class="container">
+<!--<h1>Voting review</h1>-->
+
+<?= $this->getContent() ?>
+</div>
+</body>
+</html>

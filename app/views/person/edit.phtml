@@ -1,29 +1,40 @@
-<?php use Phalcon\Tag;
+<?php
+use Phalcon\Tag;
+
 Tag::setDefaults( array(
 	                  "name" => $user->getFirstName(),
-                      "surname" => $user->getLastName(),
-                      "is_active" => $user->getIsActive()
-                  ));
+	                  "surname" => $user->getLastName(),
+	                  "is_active" => $user->getIsActive()
+                  ) );
 ?>
 
-<?= Tag::form( "person/edit/" . $user->getId()); ?>
+<h2>Edit person</h2>
 
-<p>
-	<label for="name">Name</label>
-	<?= Tag::textField( "name" ) ?>
-</p>
+<?= Tag::form( array( "person/edit/" . $user->getId(), "class" => "form-horizontal", "role" => "form" ) ); ?>
+<div class="form-group">
+	<label for="name" class="col-sm-2 control-label">Name</label>
 
-<p>
-	<label for="surname">Surname</label>
-	<?= Tag::textField( "surname" ) ?>
-</p>
-<p>
-	<label for="is_active">Is person active</label>
-	<?= Tag::checkField("is_active") ?>
-</p>
+	<div class="col-sm-10">
+		<?= Tag::textField( array( "name", "class" => "form-control" ) ) ?>
+	</div>
+</div>
+<div class="form-group">
+	<label for="surname" class="col-sm-2 control-label">Surname</label>
 
-<p>
-	<?= Tag::submitButton( "Submit" ) ?>
-</p>
+	<div class="col-sm-10">
+		<?= Tag::textField( array( "surname", "class" => "form-control" ) ) ?>
+	</div>
+</div>
+<div class="form-group">
+	<label for="is_active" class="col-sm-2 control-label">Is person active</label>
 
+	<div class="col-sm-10">
+		<?= Tag::checkField( "is_active" ) ?>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<?= Tag::submitButton( array( "Submit", "class" => "btn btn-success" ) ) ?>
+	</div>
+</div>
 </form>

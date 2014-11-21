@@ -1,4 +1,36 @@
 <?php use Phalcon\Tag; ?>
 
-<h2><?= $user->getFirstName() . ' ' . $user->getLastName() ?></h2>
+	<h2><?= $user->getFirstName() . ' ' . $user->getLastName() . ( $user->getIsActive() ? "" : "<small> (inactive)</small>" ) ?></h2>
 
+<?php
+if( empty( $history ) ){
+	echo "This person has no voting history.";
+} else {
+	?>
+
+	<table class="table table-hover">
+		<caption>Voting history</caption>
+		<thead>
+		<tr>
+			<th>Point</th>
+			<th>Date</th>
+			<th>Voted</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach( $history as $entry ){ ?>
+			<tr>
+				<td><?= Tag::linkTo( "voting_point/view/" . $entry->getPointId(), $entry->votingPoint->getName() ) ?></td>
+				<td><?= $entry->votingPoint->getDate() ?></td>
+				<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
+			</tr>
+		<?php } ?>
+	</table>
+	<script>
+		$( 'table' ).filterTable(
+			{
+				quickList: [ 'sex', 'Hawaiʻi', 'university', 'college', 'neighbor island' ]
+			}
+		);
+	</script>
+<?php } ?>

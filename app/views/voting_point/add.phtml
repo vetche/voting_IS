@@ -1,31 +1,33 @@
 <?php use Phalcon\Tag; ?>
 
-	<p>Add new point</p>
-<?= Tag::form( array( "voting_point/add", "class" => "form-horizontal" )) ?>
-		<div class="control-group">
-		<label class="control-label" for="name">Name</label>
-	<div class="controls">
-			<?= Tag::textField( "name" ) ?>
-	</div>
-		</div>
-	<div class="control-group">
-		<label class="control-label" for="description">Descritpion</label>
-	<div class="controls">
-			<?= Tag::textArea( "description" ) ?>
-	</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="date">Date</label>
-	<div class="controls">
-		<?= Tag::textField( array( "date", "id" => "dp1" ) ); ?>
-	</div>
-	</div>
-	<div class="control-group">
+	<h2>Add new point</h2>
+<?= Tag::form( array( "voting_point/add", "class" => "form-horizontal" ) ) ?>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="name">Name</label>
 
-	<!--1999-01-08 rmd-->
-	<div class="controls">
-		<?= Tag::submitButton( array( "Register", "class" => "btn" )) ?>
+		<div class="col-sm-10">
+			<?= Tag::textField( array( "name", "class" => "form-control" ) ) ?>
+		</div>
 	</div>
-</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="description">Descritpion</label>
+
+		<div class="col-sm-10">
+			<?= Tag::textArea( array( "description", "class" => "form-control" ) ) ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="date">Date</label>
+
+		<div class="col-sm-10">
+			<?= Tag::textField( array( "date", "id" => "dp1", "class" => "form-control" ) ); ?>
+		</div>
+	</div>
+	<div class="form-group">
+
+		<div class="col-sm-offset-2 col-sm-10">
+			<?= Tag::submitButton( array( "Submit", "class" => "btn btn-success" ) ) ?>
+		</div>
+	</div>
 	</form>
 <?= Tag::javascriptInclude( "js/script.js" ) ?>

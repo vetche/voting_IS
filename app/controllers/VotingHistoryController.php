@@ -30,16 +30,6 @@ class VotingHistoryController extends Controller {
 			$this->view->disable();
 			return;
 		}
-
-		//@todo dat toto na najeke dobre miesto
-		$votingOptions = array(
-			0 => "Did not vote",
-		    1 => "For",
-		    2 => "Against",
-		    3 => "Abstain"
-		);
-
-		$this->view->setVar( "votingOptions", $votingOptions );
 	}
 
 	public function viewAction(){
@@ -65,6 +55,10 @@ class VotingHistoryController extends Controller {
 
 	}
 
+	public function deleteAction(){
+
+	}
+
 	public function indexAction(){
 		$history = VotingHistory::find(
 			array(
@@ -72,14 +66,6 @@ class VotingHistoryController extends Controller {
 			)
 		);
 
-		$votingOptions = array(
-			0 => "Did not vote",
-			1 => "For",
-			2 => "Against",
-			3 => "Abstain"
-		);
-
-		$this->view->setVar( "votingOptions", $votingOptions );
 		$this->view->setVar( "history", $history );
 	}
 } 

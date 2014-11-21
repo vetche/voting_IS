@@ -7,11 +7,12 @@
  * Time: 4:51 PM
  */
 use Phalcon\Mvc\Controller;
+
 //@todo spravit nejak inteligente concat na first a last name
 
 class PersonController extends Controller {
-	public function addAction( ){
-		if( count( $this->request->getPost()) > 0 ){
+	public function addAction(){
+		if( count( $this->request->getPost() ) > 0 ){
 			$person = new Person();
 
 			$person->setFirstName( $this->request->getPost()[ 'name' ] );
@@ -40,7 +41,7 @@ class PersonController extends Controller {
 			$person = Person::findFirst(
 				array(
 					"id = " . $this->dispatcher->getParams()[ 0 ]
-				));
+				) );
 
 
 			$person->setFirstName( $postedParams[ "name" ] );
@@ -68,7 +69,7 @@ class PersonController extends Controller {
 			)
 		);
 
-		if( ! $user ){
+		if( !$user ){
 			//@todo 404 maybe
 			echo 'Invalid id';
 			$this->view->disable();
@@ -81,20 +82,32 @@ class PersonController extends Controller {
 		//@todo check na param
 		//@todo spravit dispatcher file
 
-		$user = Person::findFirst(
+		$personId = $this->dispatcher->getParams()[ 0 ];
+
+		$history = VotingHistory::find(
 			array(
-				"id = " . $this->dispatcher->getParams()[ 0 ]
+				"person_id = " . $personId
 			)
 		);
 
-		if( ! $user ){
-			//@todo 404 maybe
-			echo 'Invalid id';
-			$this->view->disable();
+		if( count( $history ) == 0 ){
+			$user = Person::findFirst(
+				array(
+					"id = " . $personId
+				)
+			);
+
+			if( !$user ){
+				//@todo 404 maybe
+				echo 'Invalid user';
+				$this->view->disable();
+			} else {
+				$this->view->setVar( "user", $user );
+			}
+		} else {
+			$this->view->setVar( "user", $history[ 0 ]->person );
+			$this->view->setVar( "history", $history );
 		}
-
-		$this->view->setVar( "user", $user );
-
 	}
 
 	public function indexAction(){

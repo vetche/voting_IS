@@ -2,7 +2,8 @@
 
 use Phalcon\Db\RawValue;
 use Phalcon\Mvc\Model;
-//@todo ma hasMany a belongsTo nejaku vyhodu?
+
+//@todo poriesit kaskadovanie v db
 
 class Person extends Model {
 	protected $id;
@@ -10,9 +11,8 @@ class Person extends Model {
 	protected $last_name;
 	protected $is_active;
 
-	public function initialize()
-	{
-		$this->hasMany('id', 'VotingHistory', 'person_id',array('foreignKey' => true));
+	public function initialize(){
+		$this->hasMany( 'id', 'VotingHistory', 'person_id', array( 'foreignKey' => true ) );
 		$this->setIsActive( new RawValue( 'default' ) );
 	}
 
@@ -28,7 +28,7 @@ class Person extends Model {
 	 * @param mixed $first_name
 	 */
 	public function setFirstName( $first_name ){
-		$this->first_name = $first_name;
+		$this->first_name = ucfirst( $first_name );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Person extends Model {
 	 * @param mixed $last_name
 	 */
 	public function setLastName( $last_name ){
-		$this->last_name = $last_name;
+		$this->last_name = ucfirst( $last_name );
 	}
 
 

@@ -1,24 +1,35 @@
 <?php use Phalcon\Tag; ?>
 
-	<h2>Points</h2>
+<h2>Voting Points</h2>
 
-	<table class="table table-hover">
-		<caption>Voting points</caption>
-		<thead>
+<p>
+	<?= Tag::linkTo( "voting_point/add", '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add new</button>' ) ?>
+</p>
+
+<table class="table table-hover">
+	<!--	<caption>Voting points</caption>-->
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Date</th>
+		<th>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach( $points as $entry ){ ?>
 		<tr>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Date</th>
+			<td><?= $entry->getName() ?></td>
+			<td><?= $entry->getDescription() ?></td>
+			<td><?= $entry->getDate() ?></td>
+			<td>
+				<?= Tag::linkTo( "voting_point/view/" . $entry->getId(), '<span class="glyphicon glyphicon-eye-open"></span>' ) ?>
+				&nbsp;
+				<?= Tag::linkTo( "voting_point/edit/" . $entry->getId(), '<span class="glyphicon glyphicon-pencil"></span>' ) ?>
+			</td>
 		</tr>
-		</thead>
-		<tbody>
-		<?php foreach( $points as $entry ){?>
-			<tr>
-				<td><?= $entry->getName() ?></td>
-				<td><?= $entry->getDescription() ?></td>
-				<td><?= $entry->getDate() ?></td>
-			</tr>
-		<?php }?>
-	</table>
-
-<?= Tag::linkTo( "voting_point/add", "Add new" ) ?>
+	<?php } ?>
+</table>
+<script>
+	$( 'table' ).filterTable();
+</script>

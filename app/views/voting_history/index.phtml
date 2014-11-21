@@ -1,27 +1,39 @@
 <?php use Phalcon\Tag; ?>
-	<table class="table table-hover">
-		<caption>Voting history</caption>
-		<thead>
+
+<h2>Voting History</h2>
+
+<p>
+	<?= Tag::linkTo( "voting_history/add", '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add new</button>' ) ?>
+</p>
+
+<table class="table table-hover">
+	<!--	<caption>Voting history</caption>-->
+	<thead>
+	<tr>
+		<th>Point</th>
+		<th>Person</th>
+		<th>Voted</th>
+		<th>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach( $history as $entry ){ ?>
 		<tr>
-			<th>Point</th>
-			<th>Person</th>
-			<th>Voted</th>
+			<td><?= $entry->votingPoint->getName() ?></td>
+			<td><?= $entry->person->getFirstName() . ' ' . $entry->person->getLastName() ?></td>
+			<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
+			<td>
+				<?= Tag::linkTo( "voting_history/edit/" . $entry->getId(), '<span class="glyphicon glyphicon-pencil"></span>' ) ?>
+				&nbsp;
+				<?= Tag::linkTo( "voting_history/delete/" . $entry->getId(), '<span class="glyphicon glyphicon-trash"></span>' ) ?>
+			</td>
 		</tr>
-		</thead>
-		<tbody>
-		<?php foreach( $history as $entry ){?>
-			<tr>
-				<td><?= $entry->votingPoint->getName() ?></td>
-				<td><?= $entry->person->getFirstName() . ' ' . $entry->person->getLastName() ?></td>
-				<td><?= $votingOptions[ $entry->getVoted()] ?></td>
-			</tr>
-		<?php }?>
-	</table>
-	<script>
-		$('table').filterTable(
-			{
-				quickList: ['sex', 'Hawaiʻi', 'university', 'college', 'neighbor island']
-			}
-		);
-	</script>
-<?= Tag::linkTo( "voting_history/add", "Add new" ) ?>
+	<?php } ?>
+</table>
+<script>
+	$( 'table' ).filterTable(
+		{
+			quickList: [ 'sex', 'Hawaiʻi', 'university', 'college', 'neighbor island' ]
+		}
+	);
+</script>

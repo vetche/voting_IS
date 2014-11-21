@@ -23,8 +23,8 @@ class VotingHistory extends Model {
 
 
 	public function initialize(){
-		$this->belongsTo("person_id", "Person", "id",array('foreignKey' => true));
-		$this->belongsTo("point_id", "VotingPoint", "id",array('foreignKey' => true));
+		$this->belongsTo( "person_id", "Person", "id", array( 'foreignKey' => true ) );
+		$this->belongsTo( "point_id", "VotingPoint", "id", array( 'foreignKey' => true ) );
 	}
 
 	/**
@@ -82,6 +82,4 @@ class VotingHistory extends Model {
 	public function setVoted( $voted ){
 		$this->voted = $voted;
 	}
-
-
-} 
+}

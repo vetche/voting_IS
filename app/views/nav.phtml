@@ -1,0 +1,10 @@
+<?php use Phalcon\Tag; ?>
+<nav>
+	<ul class="nav nav-pills">
+		<li role="presentation"
+		    class="active"><?= Tag::linkTo( "", '<span class="glyphicon glyphicon-home"></span>' ) ?></li>
+		<li role="presentation"><?= Tag::linkTo( "person", "Persons" ) ?></li>
+		<li role="presentation"><?= Tag::linkTo( "voting_point", "Voting Points" ) ?></li>
+		<li role="presentation"><?= Tag::linkTo( "voting_history", "Voting History" ) ?></li>
+	</ul>
+</nav>

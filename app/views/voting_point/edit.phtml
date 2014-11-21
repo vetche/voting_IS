@@ -1,0 +1,43 @@
+<?php
+use Phalcon\Tag;
+
+Tag::setDefaults( array(
+	                  "name" => $point->getName(),
+	                  "description" => $point->getDescription(),
+	                  "date" => $point->getDate()
+                  ) );
+?>
+
+	<h2>Edit voting point</h2>
+
+<?= Tag::form( array( "voting_point/edit/" . $point->getId(), "class" => "form-horizontal", "role" => "form" ) ); ?>
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">Name</label>
+
+		<div class="col-sm-10">
+			<?= Tag::textField( array( "name", "class" => "form-control" ) ) ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="description" class="col-sm-2 control-label">description</label>
+
+		<div class="col-sm-10">
+			<?= Tag::textArea( array( "description", "class" => "form-control" ) ) ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="date">Date</label>
+
+		<div class="col-sm-10">
+			<?= Tag::textField( array( "date", "id" => "dp1", "class" => "form-control" ) ); ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<?= Tag::submitButton( array( "Submit", "class" => "btn btn-success" ) ) ?>
+		</div>
+	</div>
+	</form>
+<?= Tag::javascriptInclude( "js/script.js" ) ?>

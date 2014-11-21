@@ -36,29 +36,71 @@ class VotingPointController extends Controller {
 	public function viewAction(){
 		//@todo check na param
 		//@todo spravit dispatcher file
+		$pointId = $this->dispatcher->getParams()[ 0 ];
+
+		$history = VotingHistory::find(
+			array(
+				"point_id = " . $pointId
+			)
+		);
+
+		if( count( $history ) == 0 ){
+			$point = VotingPoint::findFirst(
+				array(
+					"id = " . $pointId
+				)
+			);
+
+			if( !$point ){
+				//@todo 404 maybe
+				echo 'Invalid voting point';
+				$this->view->disable();
+			} else {
+				$this->view->setVar( "point", $point );
+			}
+		} else {
+			$this->view->setVar( "point", $history[ 0 ]->votingPoint );
+			$this->view->setVar( "history", $history );
+		}
+	}
+
+	public function editAction(){
+		//@todo check na param + dispatcher
+		$postedParams = $this->request->getPost();
+
 		$point = VotingPoint::findFirst(
 			array(
 				"id = " . $this->dispatcher->getParams()[ 0 ]
 			)
 		);
 
-		if( !$point ){
-			//@todo 404 maybe
-			echo 'Invalid id';
+		if( count( $postedParams ) > 0 ){
+			$point->setName( $postedParams[ "name" ] );
+			$point->setDescription( $postedParams[ "description" ] );
+			$point->setDate( $postedParams[ "date" ] );
+
+			//Store and check for errors
+			if( $point->save() ){
+				//daco
+			} else {
+				echo "Sorry, the following problems were generated: ";
+				foreach( $point->getMessages() as $message ){
+					echo $message->getMessage(), "<br/>";
+				}
+			}
+
+			$this->response->redirect( "voting_point" );
 			$this->view->disable();
+			return;
 		}
 
 		$this->view->setVar( "point", $point );
 	}
 
-	public function editAction(){
-
-	}
-
 	public function indexAction(){
 		$points = VotingPoint::find(
 			array(
-				"order" => "date, name"
+				"order" => "date DESC, name"
 			)
 		);
 

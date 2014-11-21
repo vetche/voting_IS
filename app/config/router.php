@@ -1,5 +1,5 @@
 <?php
-
+//@todo vymysliet router, spravit config file
 // Create the router
 $router = new \Phalcon\Mvc\Router();
 

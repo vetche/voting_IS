@@ -52,11 +52,55 @@ class VotingHistoryController extends Controller {
 	}
 
 	public function editAction(){
+		//@todo check na param + dispatcher
+		$postedParams = $this->request->getPost();
 
+		$history = VotingHistory::findFirst(
+			array(
+				"id = " . $this->dispatcher->getParams()[ 0 ]
+			)
+		);
+
+		if( !$history ){
+			//@todo 404 maybe
+			echo 'Invalid id';
+			$this->view->disable();
+		}
+
+		if( count( $postedParams ) > 0 ){
+			$history->setVoted( $postedParams[ "voted" ] );
+
+			//Store and check for errors
+			if( $history->save() ){
+				//daco
+			} else {
+				echo "Sorry, the following problems were generated: ";
+				foreach( $history->getMessages() as $message ){
+					echo $message->getMessage(), "<br/>";
+				}
+			}
+
+			$this->response->redirect( "voting_history" );
+			$this->view->disable();
+			return;
+		}
+
+		$this->view->setVar( "history", $history );
 	}
 
 	public function deleteAction(){
-
+		//@todo pridat checky + js confirm
+		$history = VotingHistory::findFirst( $this->dispatcher->getParams()[ 0 ] );
+		if( $history != false ){
+			if( $history->delete() == false ){
+				echo "Sorry, we can't delete the entry right now: \n";
+				foreach( $history->getMessages() as $message ){
+					echo $message, "\n";
+				}
+			} else {
+				echo "The entry was deleted successfully!";
+			}
+		}
 	}
 
 	public function indexAction(){

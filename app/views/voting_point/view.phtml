@@ -1,3 +1,39 @@
 <?php use Phalcon\Tag; ?>
 
-<h2><?= $point->getName() . '<br />' . $point->getDate() ?></h2>
+	<h2>Point overview</h2>
+
+	<dl class="dl-horizontal">
+		<dt>Name</dt>
+		<dd><?= $point->getName() ?></dd>
+		<dt>Description</dt>
+		<dd><?= nl2br( $point->getDescription() ) ?></dd>
+		<dt>Date</dt>
+		<dd><?= $point->getDate() ?></dd>
+	</dl>
+
+<?php
+if( empty( $history ) ){
+	echo "This point has no voting history.";
+} else {
+	?>
+
+	<table class="table table-hover">
+		<caption>Voting history</caption>
+		<thead>
+		<tr>
+			<th>Person</th>
+			<th>Voted</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach( $history as $entry ){ ?>
+			<tr>
+				<td><?= Tag::linkTo( "person/view/" . $entry->getPersonId(), $entry->person->getLastName() . ' ' . $entry->person->getFirstName() ) ?></td>
+				<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
+			</tr>
+		<?php } ?>
+	</table>
+	<script>
+		$( 'table' ).filterTable();
+	</script>
+<?php } ?>

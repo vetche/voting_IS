@@ -40,11 +40,13 @@ class VotingOptions extends Tag {
 		$selectName = isset( $params[ "id" ] ) ? ' name="' . $params[ "id" ] . '"' : ' name="' . $params[ 0 ] . '"';
 		$selectClass = isset( $params[ "class" ] ) ? ' class="' . $params[ "class" ] . '"' : "";
 		$emptyOption = isset( $params[ "useEmpty" ] ) ? "<option value=''>Choose...</option>" : "";
+		$selectedId = isset( $params[ "selected" ] ) ? $params[ "selected" ] : -1;
+		$selectedText = isset( $params[ "selected" ] ) ? ' selected="selected"' : "";
 
 		$html = "<select " . $selectName . $selectId . $selectClass . ">" . $emptyOption;
 
 		foreach( self::$votingOptions as $value => $option ){
-			$html .= "<option value=" . $value . ">" . $option . "</option>";
+			$html .= '<option value="' . $value . '"' . ( $selectedId == $value ? $selectedText : "" ) . '>' . $option . '</option>';
 		}
 
 		$html .= "</select>";

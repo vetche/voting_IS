@@ -20,7 +20,7 @@
 	<?php foreach( $points as $entry ){ ?>
 		<tr>
 			<td><?= $entry->getName() ?></td>
-			<td><?= $entry->getDescription() ?></td>
+			<td><?= nl2br( $entry->getDescription() ) ?></td>
 			<td><?= $entry->getDate() ?></td>
 			<td>
 				<?= Tag::linkTo( "voting_point/view/" . $entry->getId(), '<span class="glyphicon glyphicon-eye-open"></span>' ) ?>

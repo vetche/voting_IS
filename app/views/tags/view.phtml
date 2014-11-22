@@ -1,0 +1,35 @@
+<?php use Phalcon\Tag; ?>
+
+	<h2>Tag overview</h2>
+
+	<dl class="dl-horizontal">
+		<dt>Name</dt>
+		<dd><?= $tag->getName() ?></dd>
+	</dl>
+
+<?php
+if( empty( $points ) ){
+	echo "This tag is not associated to any voting points.";
+} else {
+	?>
+
+	<table class="table table-hover">
+		<caption>Voting points</caption>
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Date</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach( $points as $entry ){ ?>
+			<tr>
+				<td><?= Tag::linkTo( "voting_point/view/" . $entry->getPointId(), $entry->votingPoint->getName() ) ?></td>
+				<td><?= $entry->votingPoint->getDate() ?></td>
+			</tr>
+		<?php } ?>
+	</table>
+	<script>
+		$( 'table' ).filterTable();
+	</script>
+<?php } ?>

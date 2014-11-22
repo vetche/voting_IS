@@ -7,10 +7,15 @@
  */
 use Phalcon\Mvc\Model;
 
-class VotingPointTags extends Model {
+class VotingPointTag extends Model {
 	protected $id;
 	protected $point_id;
-	protected $tag;
+	protected $tag_id;
+
+	public function initialize(){
+		$this->belongsTo( 'point_id', 'VotingPoint', 'id', array( 'foreignKey' => true ) );
+		$this->belongsTo( 'tag_id', 'Tags', 'id', array( 'foreignKey' => true ) );
+	}
 
 	/**
 	 * @return mixed
@@ -29,15 +34,15 @@ class VotingPointTags extends Model {
 	/**
 	 * @return mixed
 	 */
-	public function getTag(){
-		return $this->tag;
+	public function getTagId(){
+		return $this->tag_id;
 	}
 
 	/**
 	 * @param mixed $tag
 	 */
-	public function setTag( $tag ){
-		$this->tag = $tag;
+	public function setTagId( $tag ){
+		$this->tag_id = $tag;
 	}
 
 	/**

@@ -16,16 +16,8 @@ class VotingPoint extends Model {
 	public function initialize()
 	{
 		$this->hasMany('id', 'VotingHistory', 'point_id', array('foreignKey' => true));
+		$this->hasMany( 'id', 'VotingPointTag', 'point_id', array( 'foreignKey' => true ) );
 		$this->setDescription( '' );
-	}
-
-	public function columnMap() {
-		return array(
-			'id' => 'id',
-			'name' => 'name',
-			'description' => 'description',
-			'date' => 'date'
-		);
 	}
 
 	/**

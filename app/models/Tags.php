@@ -11,6 +11,11 @@ class Tags extends Model {
 	protected $id;
 	protected $name;
 
+	public function initialize(){
+		$this->setSource( "tag" );
+		$this->hasMany( 'id', 'VotingPointTag', 'tag_id', array( 'foreignKey' => true ) );
+	}
+
 	/**
 	 * @return mixed
 	 */
@@ -36,7 +41,7 @@ class Tags extends Model {
 	 * @param mixed $name
 	 */
 	public function setName( $name ){
-		$this->name = $name;
+		$this->name = strtolower( $name );
 	}
 
 

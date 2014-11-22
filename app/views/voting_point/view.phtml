@@ -9,6 +9,8 @@
 		<dd><?= nl2br( $point->getDescription() ) ?></dd>
 		<dt>Date</dt>
 		<dd><?= $point->getDate() ?></dd>
+		<dt>Tags</dt>
+		<dd><?= implode( ", ", $tags ) ?></dd>
 	</dl>
 
 <?php

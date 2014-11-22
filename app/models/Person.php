@@ -16,6 +16,17 @@ class Person extends Model {
 		$this->setIsActive( new RawValue( 'default' ) );
 	}
 
+	private function validateField( $fieldValue, $displayName ){
+		if( empty( $fieldValue ) ){
+			throw new InvalidArgumentException( $displayName . " cannot be empty" );
+		}
+
+		if( preg_match( "/[^\p{L}\s\.\-]/u", $fieldValue ) ){
+			throw new InvalidArgumentException( "Invalid characters in " . $displayName );
+		}
+
+		return true;
+	}
 
 	/**
 	 * @return mixed
@@ -28,6 +39,9 @@ class Person extends Model {
 	 * @param mixed $first_name
 	 */
 	public function setFirstName( $first_name ){
+		$first_name = trim( $first_name );
+		$this->validateField( $first_name, "First name" );
+
 		$this->first_name = ucfirst( $first_name );
 	}
 
@@ -42,6 +56,9 @@ class Person extends Model {
 	 * @param mixed $id
 	 */
 	public function setId( $id ){
+		if( !is_int( $id ) ){
+			throw new InvalidArgumentException( "Id must be an integer." );
+		}
 		$this->id = $id;
 	}
 
@@ -56,6 +73,9 @@ class Person extends Model {
 	 * @param mixed $is_active
 	 */
 	public function setIsActive( $is_active ){
+		if( !is_bool( $is_active ) && $is_active != 'default' ){
+			throw new InvalidArgumentException( "Is_active must be a boolean" );
+		}
 		$this->is_active = $is_active;
 	}
 
@@ -70,8 +90,12 @@ class Person extends Model {
 	 * @param mixed $last_name
 	 */
 	public function setLastName( $last_name ){
+		$last_name = trim( $last_name );
+		$this->validateField( $last_name, "First name" );
 		$this->last_name = ucfirst( $last_name );
 	}
 
-
+	public function getName( $lexicalOrder = true ){
+		return $lexicalOrder ? ( $this->getLastName() . " " . $this->getFirstName() ) : ( $this->getFirstName() . " " . $this->getLastName() );
+	}
 }

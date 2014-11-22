@@ -1,6 +1,6 @@
 <?php use Phalcon\Tag; ?>
 
-	<h2><?= $user->getFirstName() . ' ' . $user->getLastName() . ( $user->getIsActive() ? "" : "<small> (inactive)</small>" ) ?></h2>
+	<h2><?= $user->getName( false ) . ( $user->getIsActive() ? "" : "<small> (inactive)</small>" ) ?></h2>
 
 <?php
 if( empty( $history ) ){

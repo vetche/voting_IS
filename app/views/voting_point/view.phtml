@@ -30,7 +30,7 @@ if( empty( $history ) ){
 		<tbody>
 		<?php foreach( $history as $entry ){ ?>
 			<tr>
-				<td><?= Tag::linkTo( "person/view/" . $entry->getPersonId(), $entry->person->getLastName() . ' ' . $entry->person->getFirstName() ) ?></td>
+				<td><?= Tag::linkTo( "person/view/" . $entry->getPersonId(), $entry->person->getName() ) ?></td>
 				<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
 			</tr>
 		<?php } ?>

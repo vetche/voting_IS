@@ -20,7 +20,7 @@
 	<?php foreach( $history as $entry ){ ?>
 		<tr>
 			<td><?= $entry->votingPoint->getName() ?><?= isset( $tags[ $entry->getPointId() ] ) ? "<br /><small class='text-muted'>" . implode( ", ", ( $tags[ $entry->getPointId() ] ) ) . "</small>" : "" ?></td>
-			<td><?= $entry->person->getFirstName() . ' ' . $entry->person->getLastName() ?></td>
+			<td><?= $entry->person->getName() ?></td>
 			<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
 			<td>
 				<?= Tag::linkTo( "voting_history/edit/" . $entry->getId(), '<span class="glyphicon glyphicon-pencil"></span>' ) ?>

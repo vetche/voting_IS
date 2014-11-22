@@ -19,7 +19,7 @@
 	<tbody>
 	<?php foreach( $history as $entry ){ ?>
 		<tr>
-			<td><?= $entry->votingPoint->getName() ?></td>
+			<td><?= $entry->votingPoint->getName() ?><?= isset( $tags[ $entry->getPointId() ] ) ? "<br /><small class='text-muted'>" . implode( ", ", ( $tags[ $entry->getPointId() ] ) ) . "</small>" : "" ?></td>
 			<td><?= $entry->person->getFirstName() . ' ' . $entry->person->getLastName() ?></td>
 			<td><?= VotingOptions::votingValue( $entry->getVoted() ) ?></td>
 			<td>
@@ -33,7 +33,7 @@
 <script>
 	$( 'table' ).filterTable(
 		{
-			quickList: [ 'sex', 'Hawaiʻi', 'university', 'college', 'neighbor island' ]
+			quickList: [ <?= '"' . implode('", "', $tagNames ) . '"' ?> ]
 		}
 	);
 </script>

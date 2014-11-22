@@ -110,6 +110,24 @@ class VotingHistoryController extends Controller {
 			)
 		);
 
+		$tagNames = array();
+		$tags = array();
+		foreach( Tags::find( array( "order" => "name" ) ) as $tag ){
+			$tagName = $tag->getName();
+
+			$associatedPoints = $tag->votingPointTag;
+			if( count( $associatedPoints ) != 0 ){
+				foreach( $associatedPoints as $vp ){
+					$tags[ $vp->getPointId() ][ ] = $tagName;
+				}
+
+			}
+
+			$tagNames[ ] = $tagName;
+		}
+
+		$this->view->setVar( "tagNames", $tagNames );
+		$this->view->setVar( "tags", $tags );
 		$this->view->setVar( "history", $history );
 	}
 } 
